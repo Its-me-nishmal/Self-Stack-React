@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'; // Import Routes
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import SplashScreen from './components/SplashScreen';
 import LoginSignUp from './components/LoginSignUp';
 import logo from './logo.svg';
@@ -19,10 +19,8 @@ function App() {
   return (
     <div className="App">
       <Router>
-        <Routes> {/* Use Routes instead of Route */}
-          <Route path="/">
-            {showSplash ? <SplashScreen logo={logo} /> : <LoginSignUp />}
-          </Route>
+        <Routes>
+          <Route path="/" element={showSplash ? <SplashScreen logo={logo} /> : <LoginSignUp />} />
         </Routes>
       </Router>
     </div>
