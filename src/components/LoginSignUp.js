@@ -1,129 +1,72 @@
-import React, { useState } from 'react';
-import { TextField, Button, Typography, Container, Box } from '@mui/material';
+import React from 'react';
+import { Link } from 'react-router-dom'; // Assuming you are using React Router
+import { Button, Container, Typography, Box } from '@mui/material';
+import Lottie from 'react-lottie';
+import animationData from '../assets/home.json'; // Replace './animation.json' with the path to your Lottie animation JSON file
 
-function LoginSignUp() {
-  // State variables to handle user input and registration status
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [phone, setPhone] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
-  const [success, setSuccess] = useState(false); // New state for success message
-
-  // Function to handle form submission
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const response = await fetch('https://flutter-self-stack-api.vercel.app/api/users/?apiKey=flutterbyafaf', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ name, email, phone, password }),
-      });
-      if (!response.ok) {
-        throw new Error('Registration failed');
-      }
-      // Registration successful
-      setSuccess(true); // Set success to true
-      setError(''); // Clear any previous error
-      // You can also redirect here if needed
-    } catch (error) {
-      setError('Registration failed. Please try again.');
-      console.error('Error:', error);
-    }
+function LoginSignUpPage() {
+  const defaultOptions = {
+    loop: true,
+    autoplay: true,
+    animationData: animationData,
+    rendererSettings: {
+      preserveAspectRatio: 'xMidYMid slice',
+    },
   };
 
   return (
     <Container maxWidth="sm">
       <Box
-        style={{
-          color: 'white',
+        sx={{
+          backgroundColor: 'black',
           padding: '20px',
-          borderRadius: '5px',
+          borderRadius: '10px',
           marginTop: '50px',
-          border: '2px solid #12AD34',
+          border: '1px solid #12AD34',
+          boxShadow: '0px 5px 15px rgba(0, 0, 0, 0.1)',
+          textAlign: 'center',
         }}
       >
-        <Typography variant="h5" align="center" gutterBottom>
-          Login / Sign Up Interface
+        <Typography variant="h4" align="center" gutterBottom style={{ color: 'white', fontFamily: 'Roboto, sans-serif' }}>
+          Welcome to Self-Stack
         </Typography>
-        {/* Display error message if registration fails */}
-        {error && <Typography color="error">{error}</Typography>}
-        {/* Display success message if registration is successful */}
-        {success && <Typography style={{ color: 'green', marginBottom: '10px' }}>Registration successful!</Typography>}
-        {/* Form for registering users */}
-        <form onSubmit={handleSubmit}>
-          <TextField
-            label="Name"
-            variant="outlined"
-            fullWidth
-            margin="normal"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            required
-            InputLabelProps={{
-              style: { color: 'white' },
-            }}
-            InputProps={{
-              style: { border: '1px solid white', color: 'white' },
-            }}
-          />
-          <TextField
-            label="Email"
-            variant="outlined"
-            fullWidth
-            margin="normal"
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-            InputLabelProps={{
-              style: { color: 'white' },
-            }}
-            InputProps={{
-              style: { border: '1px solid white', color: 'white' },
-            }}
-          />
-          <TextField
-            label="Phone"
-            variant="outlined"
-            fullWidth
-            margin="normal"
-            type="tel"
-            value={phone}
-            onChange={(e) => setPhone(e.target.value)}
-            required
-            InputLabelProps={{
-              style: { color: 'white' },
-            }}
-            InputProps={{
-              style: { border: '1px solid white', color: 'white' },
-            }}
-          />
-          <TextField
-            label="Password"
-            variant="outlined"
-            fullWidth
-            margin="normal"
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-            InputLabelProps={{
-              style: { color: 'white' },
-            }}
-            InputProps={{
-              style: { border: '1px solid white', color: 'white' },
-            }}
-          />
-          <Button variant="contained" type="submit" fullWidth style={{ marginTop: '20px', backgroundColor: '#12AD34', color: 'white' }}>
-            Register
-          </Button>
-        </form>
+        <Box mt={4} mb={1}>
+          <Lottie options={defaultOptions} height={200} width={200} />
+        </Box>
+        <Box mt={2} mb={1}>
+        <Typography variant="p" align="center" gutterBottom style={{ color: 'white', fontFamily: 'Roboto, sans-serif' }}>
+          Start Your Journey
+        </Typography>
+        </Box>
+        
+        <Button
+          variant="contained"
+          component={Link}
+          to="/login"
+          style={{
+            marginRight: '10px',
+            backgroundColor: '#12AD34',
+            color: 'white',
+            fontFamily: 'Roboto, sans-serif',
+          }}
+        >
+          Login
+        </Button>
+        <Button
+          variant="contained"
+          component={Link}
+          to="/signup"
+          style={{
+            backgroundColor: '#12AD34',
+            color: 'white',
+            fontFamily: 'Roboto, sans-serif',
+          }}
+        >
+          Sign Up
+        </Button>
       </Box>
     </Container>
   );
 }
 
-export default LoginSignUp;
+export default LoginSignUpPage;
